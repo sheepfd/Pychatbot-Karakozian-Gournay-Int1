@@ -13,6 +13,13 @@ def list_of_files(directory, extension):
 
     return list(set(files_names))
 def lower_letter(file_name):
-    f = open(file_name,"r")
-    for speech in file_name:
-        print(speech)
+    contentV1 =""
+    with open(file_name,"r") as f:
+        content = f.read()
+    for i in content:
+        if ord(i)>64 and ord(i) <91:
+            contentV1 = contentV1 + chr(ord(i)+ 32)
+        else:
+            contentV1 =  contentV1 + i
+    with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]} Cleaned version ","a") as f:
+        f.write(contentV1)
