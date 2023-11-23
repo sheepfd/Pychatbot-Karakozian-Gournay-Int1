@@ -2,7 +2,7 @@ from functions1 import *
 
 with open('Cleaned/Nomination_Chirac1',"r",encoding="utf-8") as f :
     speech = f.read()
-idf_score("Cleaned")
+tf(speech)
 
 
 """a = list_of_files("./Speeches","txt")
