@@ -14,23 +14,24 @@ def list_of_files(directory, extension):
     return list(set(files_names))
 def lower_letter(file_name):
     contentV1 ="" #Initialisation of content V1 because we have to change all upper letter by lower letter
-    with open(file_name,"r",encoding="utf-8") as f:
+    with open(file_name,"r", encoding="utf-8") as f:
         content = f.read() #Here it's all the text of the speech store in the variable content
     for i in content:
         if ord(i)>64 and ord(i) <91 : # It's the interval of the upper letter in ASCII
             contentV1 = contentV1 + chr(ord(i)+ 32) # +32 in order to change upper letter into lower letter
         else:
             contentV1 =  contentV1 + i
-    with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}","w",encoding="utf-8") as f: #Create a New file with the New content
+    with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}","w", encoding="utf-8") as f: #Create a New file with the New content
         f.write(contentV1)
     contentV2 = "" #let's initialize a new variable in oder to change again and only have lower letter and nothing else
     for  i in contentV1:
-        if ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ",.;:!?'") :
-            contentV2 = contentV2 + i
-        if i == "-" :
+        if i == "-" or i == "'" or i =="\n"  :
             contentV2= contentV2 + " "
+        elif ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ",.;:!?") :
+            contentV2 = contentV2 + i
+
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}",
-              "w",encoding="utf-8") as f:  # change the file with the New content
+              "w", encoding="utf-8") as f:  # change the file with the New content
         f.write(contentV2)
 
 def tf(string):
@@ -38,28 +39,31 @@ def tf(string):
     string = list(string.split(" "))
     for i in string:
         if i == "" :
-            del i
+            string.remove('')
     for i in string:
-        itteration = 0 #to get the rank where the word appear 2times in order to delete it after for only count the word once and not twice
+        itteration = 0 #to get the rank where the word appear 2 times in order to delete it after for only count the word once and not twice
         count = 0
         for j in string:
             if j == i:
                 count+=1
-                del string[itteration] #here we delete the when the word appear with the same goal that earlier
+                string.remove(string[itteration]) #here we delete the when the word appear with the same goal that earlier
             itteration += 1
             dictionary.update({i:count})
 
     return dictionary
 def idf_score(directory):
     num_words=0 # create a variable in order to keep all number of words for after
+    total = dict()
+    all_speeches = ""
     for filename in os.listdir(directory):
-        dic = tf(filename)
-        for value in dic.values():
-            num_words = value + num_words
-
-
-
-
-
-
-
+        with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
+            speech = f.read()
+        all_speeches += speech
+        dic = tf(all_speeches)
+    for value in dic.values():
+        num_words = value + num_words
+        k+=1
+    print(dic)
+    print(num_words)
+    print(all_speeches)
+    print(k)
