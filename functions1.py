@@ -40,7 +40,7 @@ def tf(string):
         if i == "" :
             del i
     for i in string:
-        itteration = 0 #to get the rank where the word appear 2times in order to delete it after for only count the word once and not twice
+        itteration = 0 #to get the rank where the word appear 2 times in order to delete it after for only count the word once and not twice
         count = 0
         for j in string:
             if j == i:
@@ -52,10 +52,18 @@ def tf(string):
     return dictionary
 def idf_score(directory):
     num_words=0 # create a variable in order to keep all number of words for after
+    total = dict()
+    all_speeches = ""
     for filename in os.listdir(directory):
-        dic = tf(filename)
-        for value in dic.values():
-            num_words = value + num_words
+
+        with open(f"{directory}/{filename}","r",encoding="utf-8") as f:
+            speech = f.read()
+            all_speeches += speech
+    dic = tf(all_speeches)
+    for value in dic.values():
+        num_words = value + num_words
+    print(dic)
+    print(num_words)
 
 
 
