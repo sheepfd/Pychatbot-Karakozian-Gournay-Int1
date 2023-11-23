@@ -25,20 +25,35 @@ def lower_letter(file_name):
         f.write(contentV1)
     contentV2 = "" #let's initialize a new variable in oder to change again and only have lower letter and nothing else
     for  i in contentV1:
-        if ord(i) >95 and ord(i)<122 or ord(i) == 32 or i == "\n"  or i in "ùàéèôûîÉâêçŒœ" and not(i in ",.;:!?'") :
+        if ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ",.;:!?'") :
             contentV2 = contentV2 + i
-        if i == "-":
+        if i == "-" :
             contentV2= contentV2 + " "
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}",
               "w",encoding="utf-8") as f:  # change the file with the New content
         f.write(contentV2)
 
-def occurency(string):
+def tf(string):
+    dictionary = dict()
     string = list(string.split(" "))
     for i in string:
+        if i == "" :
+            del i
+    for i in string:
+        itteration = 0
         count = 0
         for j in string:
             if j == i:
-                count +=1
-                if i == j:
-                    print(f"there are {count} times the word {i}")
+                count+=1
+                del string[itteration]
+            itteration += 1
+        dictionary.update({i:count})
+    return dictionary
+def idf_score(directory):
+    for filename in os.listdir("Speeches"):
+
+
+
+
+
+
