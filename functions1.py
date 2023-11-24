@@ -44,16 +44,18 @@ def tf(string):
             if j == i:
                 count+=1
             dictionary[i]=count
+    del dictionary[""]
+
     return dictionary
 
 def idf_score(directory):
     num_words=0 # create a variable in order to keep all number of words for after
     all_speeches =""
     for filename in os.listdir(directory):
-        with open (f"{directory}/{filename}.split('.')[0].split('/')[-1])", "r") as f :
+        with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
             speech = f.read()
         all_speeches += speech
-    print(tf(all_speeches))
+    a = tf(all_speeches)
 
 
 
