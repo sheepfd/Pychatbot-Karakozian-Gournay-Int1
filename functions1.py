@@ -1,4 +1,5 @@
 import os
+import math
 
 def list_of_files(directory, extension):
 
@@ -48,10 +49,11 @@ def tf(string):
                 count+=1
                 string.remove(string[itteration]) #here we delete the when the word appear with the same goal that earlier
             itteration += 1
-            dictionary.update({i:count})
-
+            dictionary[i]=count
     return dictionary
+
 def idf_score(directory):
+    k=0
     num_words=0 # create a variable in order to keep all number of words for after
     total = dict()
     all_speeches = ""
