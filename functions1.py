@@ -25,10 +25,11 @@ def lower_letter(file_name):
         f.write(contentV1)
     contentV2 = "" #let's initialize a new variable in oder to change again and only have lower letter and nothing else
     for  i in contentV1:
-        if ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ",.;:!?'") :
-            contentV2 = contentV2 + i
-        if i == "-" :
+        if i == "-" or  i == "'" or i == "." :
             contentV2= contentV2 + " "
+        elif ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ";:!?'") :
+            contentV2 = contentV2 + i
+
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}",
               "w",encoding="utf-8") as f:  # change the file with the New content
         f.write(contentV2)
@@ -36,26 +37,28 @@ def lower_letter(file_name):
 def tf(string):
     dictionary = dict()
     string = list(string.split(" "))
-    for i in string:
-        if i == "" :
-            del i
-    for i in string:
-        itteration = 0 #to get the rank where the word appear 2times in order to delete it after for only count the word once and not twice
+    key_word=set(string)
+    for i in key_word:
         count = 0
         for j in string:
             if j == i:
                 count+=1
-                del string[itteration] #here we delete the when the word appear with the same goal that earlier
-            itteration += 1
-            dictionary.update({i:count})
-
+            dictionary[i]=count
     return dictionary
 def idf_score(directory):
     num_words=0 # create a variable in order to keep all number of words for after
+    all_speeches =""
     for filename in os.listdir(directory):
-        dic = tf(filename)
-        for value in dic.values():
-            num_words = value + num_words
+        with open (f"{directory}/{filename}.split('.')[0].split('/')[-1])", "r") as f :
+            speech = f.read()
+        all_speeches += speech
+    print(tf(all_speeches))
+
+
+
+
+
+    print()
 
 
 
