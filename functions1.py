@@ -55,7 +55,6 @@ def idf_score(directory):
     dico_score =dict()
     occuracy = 0
     for filename in os.listdir(directory):
-        in_or_not=0
         with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
             speech = f.read()
         all_speeches += speech
