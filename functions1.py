@@ -50,15 +50,25 @@ def tf(string):
 
 def idf_score(directory):
     num_words=0 # create a variable in order to keep all number of words for after
+    num_files=8 # like the number of files is constatn let's initialaze now
     all_speeches =""
+    occuracy = 0
     for filename in os.listdir(directory):
         with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
             speech = f.read()
         all_speeches += speech
-    a = tf(all_speeches)
-    for value in a.values():
-        num_words += value
-    print(num_words)
+        for filenametest in os.listdir(directory):
+            with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
+                speechtest = f.read()
+            in_or_not = 0
+            dico_files = set(tf(all_speeches).keys())
+
+
+
+
+
+
+
 
 
 
