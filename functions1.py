@@ -54,7 +54,9 @@ def idf_score(directory):
     all_speeches =""
     dico_score =dict()
     occuracy = 0
+    i= 0
     for filename in os.listdir(directory):
+
         with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
             speech = f.read()
         all_speeches += speech
@@ -63,8 +65,8 @@ def idf_score(directory):
             if a in tf(speech).keys():
                 occuracy+=1
             dico_score[a]= occuracy
-    print(dico_score)
-
+        print(i)
+        i+=1
 
 
 
