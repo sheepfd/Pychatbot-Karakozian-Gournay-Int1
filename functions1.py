@@ -25,7 +25,7 @@ def lower_letter(file_name):
         f.write(contentV1)
     contentV2 = "" #let's initialize a new variable in oder to change again and only have lower letter and nothing else
     for  i in contentV1:
-        if i == "-" or  i == "'" or i == "." :
+        if i == "-" or  i == "'" or i == "." or i == "\n" :
             contentV2= contentV2 + " "
         elif ord(i) >95 and ord(i)<122 or ord(i) == 32   or i in "ùàéèôûîÉâêçŒœ" and not(i in ";:!?'") :
             contentV2 = contentV2 + i
@@ -56,12 +56,12 @@ def idf_score(directory):
             speech = f.read()
         all_speeches += speech
     a = tf(all_speeches)
+    for value in a.values():
+        num_words += value
+    print(num_words)
 
 
 
-
-
-    print()
 
 
 
