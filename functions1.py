@@ -23,6 +23,8 @@ def lower_letter(file_name):
     for i in content:
         if ord(i) > 64 and ord(i) < 91:  # It's the interval of the upper letter in ASCII
             contentV1 = contentV1 + chr(ord(i) + 32)  # +32 in order to change upper letter into lower letter
+        elif i == 'É' :
+            contentV1 = contentV1 + "é"
         else:
             contentV1 = contentV1 + i
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}", "w",
@@ -32,7 +34,7 @@ def lower_letter(file_name):
     for i in contentV1:
         if i == "-" or i == "'" or i == "." or i == "\n":
             contentV2 = contentV2 + " "
-        elif ord(i) > 95 and ord(i) < 123 or ord(i) == 32 or i in "ùàéèôûîÉâêçŒœ" and not (i in ";:!?'"):
+        elif ord(i) > 95 and ord(i) < 123 or ord(i) == 32 or i in "ùàéèôûîâêçŒœ" and not (i in ";:!?'"):
             contentV2 = contentV2 + i
 
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}",
@@ -90,13 +92,14 @@ def Tf_idf(directory):
         for key, value in speech.items():
             score_tf_idf[key] = value * idf_score[key]
         list_speech.append(score_tf_idf)
-    for i in range(0,len(list_speech)):
+    return list_speech
+    """for i in range(0,len(list_speech)):
         count=0
         dicot =list_speech[i]
         for key,val in dicot.items():
             count +=1
             list_score[count][i] = key
-
+"""
 
 
 

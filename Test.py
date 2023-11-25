@@ -2,7 +2,8 @@ from functions1 import *
 
 """with open('Cleaned/Nomination_Chirac1',"r",encoding="utf-8") as f :
     speech = f.read()"""
-Tf_idf("Cleaned")
+print(Tf_idf("Cleaned"))
+
 
 a = list_of_files("./Speeches","txt")
 for filename in os.listdir("Speeches"):
