@@ -70,5 +70,16 @@ for filename in os.listdir("Cleaned"):
         speech = f.read()
     all_speeches = all_speeches + speech
 
-all_speeches = set(all_speeches)
-print(all_speeches)
+all_speeches= set(list(all_speeches.split(" ")))
+dict_of_unimportant = dict()
+for filename in os.listdir("Cleaned"):
+    with open(f"Cleaned/{filename}", "r", encoding="utf-8") as f:
+        speech = f.read()
+    speech = tf(speech)
+    for a in all_speeches:
+        if a in speech:
+            dict_of_unimportant[a] += 1
+print(dict_of_unimportant)
+
+
+
