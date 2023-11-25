@@ -1,6 +1,5 @@
 import os
-import math
-from collections import defaultdict
+
 def list_of_files(directory, extension):
 
     files_names = []
@@ -49,35 +48,30 @@ def tf(string):
 
     return dictionary
 
-def idf(directory):
+def idf_score(directory):
+    num_words=0 # create a variable in order to keep all number of words for after
     num_files=8 # like the number of files is constatn let's initialaze now
     all_speeches =""
-    dico_score =defaultdict(int)
+    occuracy = 0
     for filename in os.listdir(directory):
         with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
             speech = f.read()
         all_speeches += speech
-    words = set(tf(all_speeches).keys())
-    for filename in os.listdir(directory):
-        with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
-            speech = f.read()
-        speech = tf(speech).keys()
-        for a in words:
-            if a in speech:
-                dico_score[a]+=1
-    for key,value in dico_score.items():
-        dico_score[key] = round(math.log10(num_files/value)+1,5)
-    return dico_score
-def Tf_idf(directory):
-    score_tf_idf = dict()
-    idf_score = idf(directory)
-    for filename in os.listdir(directory):
-        with open(f"{directory}/{filename}","r", encoding="utf-8") as f:
-            speech = f.read()
-        speech = tf(speech)
-    for key,value in speech.items():
-        score_tf_idf[key]= value * idf_score[key]
-        print(score_tf_idf)
+        for filenametest in os.listdir(directory):
+            with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
+                speechtest = f.read()
+            in_or_not = 0
+            dico_files = set(tf(all_speeches).keys())
+
+
+
+
+
+
+
+
+
+
 
 
 
