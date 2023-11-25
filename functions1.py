@@ -32,7 +32,7 @@ def lower_letter(file_name):
     for i in contentV1:
         if i == "-" or i == "'" or i == "." or i == "\n":
             contentV2 = contentV2 + " "
-        elif ord(i) > 95 and ord(i) < 122 or ord(i) == 32 or i in "ùàéèôûîÉâêçŒœ" and not (i in ";:!?'"):
+        elif ord(i) > 95 and ord(i) < 123 or ord(i) == 32 or i in "ùàéèôûîÉâêçŒœ" and not (i in ";:!?'"):
             contentV2 = contentV2 + i
 
     with open(f"Cleaned/{file_name.split('.')[0].split('/')[-1]}",
@@ -78,12 +78,28 @@ def idf(directory):
 
 def Tf_idf(directory):
     score_tf_idf = dict()
+    list_speech=[]
+    count=0
+    list_score = []
     idf_score = idf(directory)
     for filename in os.listdir(directory):
+        score_tf_idf = dict()
         with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
             speech = f.read()
         speech = tf(speech)
-    for key, value in speech.items():
-        score_tf_idf[key] = value * idf_score[key]
-        print(score_tf_idf)
+        for key, value in speech.items():
+            score_tf_idf[key] = value * idf_score[key]
+        list_speech.append(score_tf_idf)
+    for i in range(0,len(list_speech)):
+        count=0
+        dicot =list_speech[i]
+        for key,val in dicot.items():
+            count +=1
+            list_score[count][i] = key
+
+
+
+
+
+
 
