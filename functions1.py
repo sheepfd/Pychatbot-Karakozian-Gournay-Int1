@@ -95,14 +95,29 @@ def Tf_idf(directory):
         for key, value in speech.items():
             score_tf_idf[key] = value * idf_score[key] # computation of the td_idf score
         list_of_dict_tf_idf.append(score_tf_idf) # create a list of dictionaries where each row represent the tf_idf score for each word of each document of the folder
-    words = set(tf(all_speeches).keys()) # set of all words to be able to know all the words in all documents and then use them as key to create the TF_IDF_matrix
-    for i in range(len(list_of_dict_tf_idf)):
-        for a in words:
-            if a in list_of_dict_tf_idf[i].keys():
-                TF_IDF_matrix.append(list_of_dict_tf_idf[i][a])
-
-    return(TF_IDF_matrix,list_of_dict_tf_idf)
+    return(list_of_dict_tf_idf)
     
+def TF_IDF_matrix(directory): #use another fuction to create the TF_IDF_matrix
+    all_speeches = ""
+    TF_IDF_matrix = []
+    TF_IDF_matrix_inverted= []
+    for filename in os.listdir(directory):
+        score_tf_idf = dict()
+        with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
+            speech = f.read()
+            all_speeches += speech
+    words = set(tf(all_speeches).keys())  # set of all words to be able to know all the words in all documents and then use them as key to create the TF_IDF_matrix
+    list_of_dict_tf_idf=Tf_idf("Cleaned")
+    for a in words:
+        row=[]
+        for i in range(len(list_of_dict_tf_idf)):
+            if a in list_of_dict_tf_idf[i].keys():
+                row.append(list_of_dict_tf_idf[i][a])
+            else:
+                row.append(0) # add 0 if the word isn't in the document so each row has exactly 8 columns
+        TF_IDF_matrix.append(row)
+    return(TF_IDF_matrix)
+
 
 
 
