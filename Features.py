@@ -70,22 +70,26 @@ elif feature==5:
                 print(filename.split("_")[1]) # Output: Nomination_Macron he is the only one thus he is at same the time the first one """
 #6
 elif feature==6:
-    all_speeches = ""
-    for filename in os.listdir("Cleaned"):
-        with open(f"Cleaned/{filename}", "r", encoding="utf-8") as f:
-            speech = f.read()
-        all_speeches = all_speeches + speech
+    list_word_all_president_mention=[]
+    idf_score=idf("Cleaned")
+    word_in_all_doc=[]
+    for key,val in idf_score.items():
+        if val==1:
+            word_in_all_doc.append(key)
+    a = Tf_idf("Cleaned")
+    least_important = []
+    for i in a:
+        for key, value in i.items():
+            if value == 1:
+                least_important.append(key)
+    least_important = list(set(least_important))
+    print(least_important)
+    for word in word_in_all_doc:
+        if word not in least_important:
+            list_word_all_president_mention.append(word)
+    print(a)
 
-    all_speeches= set(list(all_speeches.split(" ")))
-    dict_of_unimportant = dict()
-    for filename in os.listdir("Cleaned"):
-        with open(f"Cleaned/{filename}", "r", encoding="utf-8") as f:
-            speech = f.read()
-        speech = tf(speech)
-        for a in all_speeches:
-            if a in speech:
-                dict_of_unimportant[a] += 1
-    print(dict_of_unimportant)
+
 
 else:
     print("this feature does not exist")
