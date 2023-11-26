@@ -83,11 +83,10 @@ elif feature==6:
             if value == 1:
                 least_important.append(key)
     least_important = list(set(least_important))
-    print(least_important)
     for word in word_in_all_doc:
         if word not in least_important:
             list_word_all_president_mention.append(word)
-    print(a)
+    print(list_word_all_president_mention)
 
 
 
