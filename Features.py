@@ -7,7 +7,7 @@ if feature==1:
     least_important = []
     for i in a :
         for key,value in i.items():
-            if value == 1:
+            if value == 0:
                 least_important.append(key)
     least_important = set(least_important)
     least_important = list(least_important)
@@ -80,7 +80,7 @@ elif feature==6:
     least_important = []
     for i in a:
         for key, value in i.items():
-            if value == 1:
+            if value == 0:
                 least_important.append(key)
     least_important = list(set(least_important))
     for word in word_in_all_doc:

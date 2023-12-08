@@ -16,7 +16,7 @@ def list_of_files(directory, extension):
     return list(set(files_names))
 
 
-def lower_letter(file_name):
+def Cleanedfile(file_name):
     contentV1 = ""  # Initialisation of content V1 because we have to change all upper letter by lower letter
     with open(file_name, "r", encoding="utf-8") as f:
         content = f.read()  # Here it's all the text of the speech store in the variable content
@@ -41,6 +41,27 @@ def lower_letter(file_name):
               "w", encoding="utf-8") as f:  # change the file with the New content
         f.write(contentV2)
 
+def lower_letter(string):
+    new_string =""
+    for i in string:
+        if ord(i) > 64 and ord(i) < 91:  # It's the interval of the upper letter in ASCII
+            new_string = new_string + chr(ord(i) + 32)  # +32 in order to change upper letter into lower letter
+        elif i == 'É' :
+            new_string = new_string + "é"
+        elif i == "-" or i == "'" or i == "." or i == "\n":
+            new_string = new_string + " "
+        elif ord(i) > 95 and ord(i) < 123 or ord(i) == 32 or i in "ùàéèôûîâêçŒœ" and not (i in ";:!?'"):
+            new_string = new_string + i
+        else:
+            new_string = new_string + i
+    new_string = list(new_string.split(" "))
+    len_string = len(new_string)
+    count = 0
+    for i in range(0,len_string) :
+        if new_string[i-count] == "":
+            new_string.remove("")
+            count +=1
+    return new_string
 
 def tf(string):
     dictionary = dict()
@@ -74,7 +95,7 @@ def idf(directory):
             if a in speech: #read all words in a file calling the keys of tf function to check if a word in all words in the folder is in the document
                 dico_score[a] += 1
     for key, value in dico_score.items(): # create the dictionary associating the IDF score with each word
-        dico_score[key] = round(math.log10(num_files / value) + 1, 5)
+        dico_score[key] = round(math.log10(num_files / value), 5)
     return dico_score
 
 
@@ -119,6 +140,7 @@ def TF_IDF_matrix(directory): #use another fuction to create the TF_IDF_matrix
     return(TF_IDF_matrix)
 
 
+#Part 2
 
 
 
