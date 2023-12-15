@@ -48,7 +48,7 @@ def lower_letter(string):
             new_string = new_string + chr(ord(i) + 32)  # +32 in order to change upper letter into lower letter
         elif i == 'É' :
             new_string = new_string + "é"
-        elif i == "-" or i == "'" or i == "." or i == "\n":
+        elif i == "-" or i == "'" or i == "." or i == "\n" or i in ";:!?'" or i in '"' :
             new_string = new_string + " "
         elif ord(i) > 95 and ord(i) < 123 or ord(i) == 32 or i in "ùàéèôûîâêçŒœ" and not (i in ";:!?'"):
             new_string = new_string + i
@@ -141,9 +141,14 @@ def TF_IDF_matrix(directory): #use another fuction to create the TF_IDF_matrix
 
 
 #Part 2
-
-
-
+def all_speech(directory):
+    all_speeches =""
+    for filename in os.listdir(directory):
+        score_tf_idf = dict()
+        with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
+            speech = f.read()
+            all_speeches += speech
+    return all_speeches
 
 
 
