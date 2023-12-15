@@ -2,7 +2,11 @@ import os
 import math
 from collections import defaultdict
 
-
+def real_list_of_file(directory):
+    files_names = []
+    for filename in os.listdir(directory):
+        files_names.append(filename)
+    return files_names
 def list_of_files(directory, extension):
     files_names = []
     alldigits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -157,25 +161,7 @@ def all_speech(directory):
             all_speeches += speech
     return all_speeches
 
-def TF_IDF_question(question):
-    set_question = set(list(question.split(" ")))
-    set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
-    intersection = set_question & set_all_speeches
-    if '' in intersection:
-        intersection.remove('')
-    tf_idf_question = dict()
-    score_idf = idf('Cleaned')
-    tf_question = tf(question)
-    for key,value in score_idf.items():
-        if key in intersection:
-            tf_idf_question[key] = value * tf_question[key]
-    for i in range(len(tf_idf_question)):
-        
-    return tf_idf_question
-
-
-
-def TF_IDF_question(question):
+def TF_IDF_question_dico(question):
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
     intersection = set_question & set_all_speeches
@@ -189,7 +175,22 @@ def TF_IDF_question(question):
             tf_idf_question[key] = value * (tf_question[key]/len(tf_question))
         else:
             tf_idf_question[key] = 0
-    print(tf_idf_question)
+    return tf_idf_question
+
+def TF_IDF_question_mat(question):
+    set_question = set(list(question.split(" ")))
+    set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
+    intersection = set_question & set_all_speeches
+    if '' in intersection:
+        intersection.remove('')
+    tf_idf_question = dict()
+    score_idf = idf('Cleaned')
+    tf_question = tf(question)
+    for key, value in score_idf.items():
+        if key in intersection:
+            tf_idf_question[key] = value * (tf_question[key]/len(tf_question))
+        else:
+            tf_idf_question[key] = 0
     mat_tf_idf=[]
     for val in tf_idf_question.values():
         mat_tf_idf.append(val)
@@ -200,3 +201,14 @@ def scalaire(list1,list2):
         for k in list2:
             total = i*k+total
     return total
+def scalar_product(vectorsA,vectorsB):
+    result = 0
+    for i in range(len(vectorsA)):
+        result += vectorsA[i] * vectorsB[i]
+    return result
+
+def calculate_norm(vectorsA):
+    # Calculate the Euclidean norm of the vector A
+    norm = math.sqrt(sum(x ** 2 for x in vectorsA))
+
+    return norm
