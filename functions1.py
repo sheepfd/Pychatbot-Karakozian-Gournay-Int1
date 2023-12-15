@@ -150,6 +150,23 @@ def all_speech(directory):
             all_speeches += speech
     return all_speeches
 
+def TF_IDF_question(question):
+    set_question = set(list(question.split(" ")))
+    set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
+    intersection = set_question & set_all_speeches
+    if '' in intersection:
+        intersection.remove('')
+    tf_idf_question = dict()
+    score_idf = idf('Cleaned')
+    tf_question = tf(question)
+    for key,value in score_idf.items():
+        if key in intersection:
+            tf_idf_question[key] = value * tf_question[key]
+    for i in range(len(tf_idf_question)):
+        
+    return tf_idf_question
+
+
 
 
 
