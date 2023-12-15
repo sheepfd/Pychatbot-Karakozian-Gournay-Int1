@@ -6,7 +6,8 @@ print(lower_letter("mlkqdsfjkmqslf lksqfdjmqdsflj mkqsfdlmsâdflj sdsf'mklfjrmmk
 a = list_of_files("./Speeches","txt")
 for filename in os.listdir("Speeches"):
     Cleanedfile(f'Speeches/{filename}') # in order to fill completly the folder Cleaned
-print(all_speech("Cleaned"))
+print(len(TF_IDF_matrix("Cleaned")))
 """with open("Speeches/Nomination_Chirac.txt","r") as f:
     content= f.read()
     print(content)"""
+print(TF_IDF_question(""))
