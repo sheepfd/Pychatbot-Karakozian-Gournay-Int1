@@ -10,4 +10,6 @@ print(len(TF_IDF_matrix("Cleaned")))
 """with open("Speeches/Nomination_Chirac.txt","r") as f:
     content= f.read()
     print(content)"""
+"""print(TF_IDF_question(""))"""
+print(Tf_idf('Cleaned'))
 print(TF_IDF_question(""))
