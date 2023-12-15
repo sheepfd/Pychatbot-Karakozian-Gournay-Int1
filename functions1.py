@@ -118,7 +118,7 @@ def Tf_idf(directory):
         list_of_dict_tf_idf.append(score_tf_idf) # create a list of dictionaries where each row represent the tf_idf score for each word of each document of the folder
     return(list_of_dict_tf_idf)
     
-def TF_IDF_matrix(directory): #use another fuction to create the TF_IDF_matrix
+def TF_IDF_matrix(directory): #use another function to create the TF_IDF_matrix
     all_speeches = ""
     TF_IDF_matrix = []
     TF_IDF_matrix_inverted= []

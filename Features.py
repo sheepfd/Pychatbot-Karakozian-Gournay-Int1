@@ -74,7 +74,7 @@ elif feature==6:
     idf_score=idf("Cleaned")
     word_in_all_doc=[]
     for key,val in idf_score.items():
-        if val==1:
+        if val==0:
             word_in_all_doc.append(key)
     a = Tf_idf("Cleaned")
     least_important = []
