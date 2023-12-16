@@ -195,12 +195,7 @@ def TF_IDF_question_mat(question):
     for val in tf_idf_question.values():
         mat_tf_idf.append(val)
     return mat_tf_idf
-def scalaire(list1,list2):
-    total =0
-    for i in list1:
-        for k in list2:
-            total = i*k+total
-    return total
+
 def scalar_product(vectorsA,vectorsB):
     result = 0
     for i in range(len(vectorsA)):
@@ -208,7 +203,44 @@ def scalar_product(vectorsA,vectorsB):
     return result
 
 def calculate_norm(vectorsA):
-    # Calculate the Euclidean norm of the vector A
-    norm = math.sqrt(sum(x ** 2 for x in vectorsA))
+
+    norm = math.sqrt(sum(x ** 2 for x in vectorsA))# Calculate the Euclidean norm of the vector A
 
     return norm
+
+def similarity(vectorsA,vectorsB):
+
+    score=(scalar_product(vectorsA,vectorsB))/(calculate_norm(vectorsA)*calculate_norm(vectorsB))
+
+    return score
+
+def most_relevant_document(mat):
+    name_of_files = real_list_of_file("./Speeches")
+    max=similarity(mat[0],mat[len(mat)-1])
+    for i in range(len(mat)-1):
+        similar=similarity(mat[i],mat[len(mat)-1])
+
+        if max<similar:
+            max=similar
+
+            max_index=i
+    return name_of_files[max_index]
+
+
+def highest_tf_idf (dict):
+    max =0
+    word = ""
+    for key,value in dict.items():
+        if value > max :
+            max = value
+            word = key
+    return word
+
+def text_ini(filename):
+    content =""
+    directory= 'Speeches'
+    with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
+        content = f.read()
+        content = content.replace("\n","").split(".")
+    return content
+
