@@ -30,7 +30,7 @@ def list_of_files(directory, extension):
     return list(set(files_names))
 
 
-def Cleanedfile(file_name):
+def Cleanedfile(file_name): #this function is used for take all files of a directory change the content without punctuation and caps into a new directory which is 'Cleaned' : file_name is a string parameter is here to take the filename of the files of the directory, then change it direclty so no need to return anything.
     contentV1 = ""  # Initialisation of content V1 because we have to change all upper letter by lower letter
     with open(file_name, "r", encoding="utf-8") as f:
         content = f.read()  # Here it's all the text of the speech store in the variable content
@@ -56,7 +56,7 @@ def Cleanedfile(file_name):
         f.write(contentV2)
 
 
-def lower_letter(string):
+def lower_letter(string): #this function converts a given string to lowercase and removes punctuation : so it takes a string and return a string 
     new_string = ""
     for i in string:
         if ord(i) > 64 and ord(i) < 91:  # It's the interval of the upper letter in ASCII
@@ -78,7 +78,7 @@ def lower_letter(string):
             count += 1
     return new_string
 
-def tf(string):
+def tf(string): #Calculates the frequency of each word in a given string and returns a dictionary: The input string and the return A dictionary where keys are words and values are their respective frequencies
     dictionary = dict()
     string = list(string.split(" "))
     key_word = set(string)  # use a set to have only one time each word
@@ -93,7 +93,7 @@ def tf(string):
     return dictionary
 
 
-def idf(directory):
+def idf(directory): #compute the score idf for every words in a directory : input a string (name of the directory) return a dictionary with key unique word of all the corpus (str) and as value the idf score (float)
     num_files = 8  # like the number of files is constant let's initialise it now
     all_speeches = ""
     dico_score = defaultdict(
@@ -116,7 +116,7 @@ def idf(directory):
     return dico_score
 
 
-def Tf_idf(directory):
+def Tf_idf(directory): #compute the tf_idf in a file given 
     score_tf_idf = dict()
     list_of_dict_tf_idf = []
     count = 0
@@ -161,7 +161,7 @@ def TF_IDF_matrix(directory):  # use another function to create the TF_IDF_matri
 
 
 # Part 2
-def all_speech(directory): #as we saw that we needed several times all the content in str of each files of a directory we decided to create a function
+def all_speech(directory): #all the content in str of each files of a directory : so input directory abd return all the content in one string
     all_speeches = ""
     for filename in os.listdir(directory):
         score_tf_idf = dict()
@@ -170,7 +170,7 @@ def all_speech(directory): #as we saw that we needed several times all the conte
             all_speeches += speech
     return all_speeches
 
-def TF_IDF_question_dico(question): #create dictionary as key all words
+def TF_IDF_question_dico(question): #take as input a string which is the question for creating and return a dictionary as key all words and as value tf idf score of each word of the question
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
     intersection = set_question & set_all_speeches # we create two set one of the words of the question and one of the all string content of files in order to take their intersection
