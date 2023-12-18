@@ -1,4 +1,4 @@
-# Pychatbot-Karakozian-Gournay-Int1 (link of our github : https://github.com/sheepfd/Pychatbot-Karakozian-Gournay-Int1)
+# Pychatbot-Karakozian-Gournay-Int1 (link of our github : https://github.com/sheepfd/Pychatbot-Karakozian-Gournay-Int1
 Vrej Karakozian Paul Gournay
 
 
