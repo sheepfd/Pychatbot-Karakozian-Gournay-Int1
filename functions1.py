@@ -68,7 +68,6 @@ def lower_letter(string):
             count += 1
     return new_string
 
-
 def tf(string):
     dictionary = dict()
     string = list(string.split(" "))
@@ -88,7 +87,7 @@ def idf(directory):
     num_files = 8  # like the number of files is constant let's initialise it now
     all_speeches = ""
     dico_score = defaultdict(
-        int)  # use of "collection" module tu be able to inisialize integer in the dictionarie to then be able to increment
+        int)  # use of "collection" module to be able to inisialize integer in the dictionarie to then be able to increment
     for filename in os.listdir(directory):
         with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
             speech = f.read()
@@ -152,7 +151,7 @@ def TF_IDF_matrix(directory):  # use another function to create the TF_IDF_matri
 
 
 # Part 2
-def all_speech(directory):
+def all_speech(directory): #as we saw that we needed several times all the content in str of each files of a directory we decided to create a function
     all_speeches = ""
     for filename in os.listdir(directory):
         score_tf_idf = dict()
@@ -161,11 +160,11 @@ def all_speech(directory):
             all_speeches += speech
     return all_speeches
 
-def TF_IDF_question_dico(question):
+def TF_IDF_question_dico(question): #create dictionary as key all words
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
-    intersection = set_question & set_all_speeches
-    if '' in intersection:
+    intersection = set_question & set_all_speeches # we create two set one of the words of the question and one of the all string content of files in order to take their intersection
+    if '' in intersection: # just for being sure that there is no '' our set
         intersection.remove('')
     tf_idf_question = dict()
     score_idf = idf('Cleaned')
@@ -177,7 +176,7 @@ def TF_IDF_question_dico(question):
             tf_idf_question[key] = 0
     return tf_idf_question
 
-def TF_IDF_question_mat(question):
+def TF_IDF_question_mat(question): #same thing as previously just is here to create a matrix 2d of the question
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
     intersection = set_question & set_all_speeches
@@ -196,7 +195,7 @@ def TF_IDF_question_mat(question):
         mat_tf_idf.append(val)
     return mat_tf_idf
 
-def scalar_product(vectorsA,vectorsB):
+def scalar_product(vectorsA,vectorsB): #compute the scalar product between 2 list 1D
     result = 0
     for i in range(len(vectorsA)):
         result += vectorsA[i] * vectorsB[i]
@@ -205,16 +204,18 @@ def scalar_product(vectorsA,vectorsB):
 def calculate_norm(vectorsA):
 
     norm = math.sqrt(sum(x ** 2 for x in vectorsA))# Calculate the Euclidean norm of the vector A
-
+    if norm == 0 : # because in the computation of simlarity we use the norm as a denominator so it can't be equal to 0
+        print("Sorry we can't answer your question")
+        exit(0)
     return norm
 
-def similarity(vectorsA,vectorsB):
+def similarity(vectorsA,vectorsB): # just aply the formula given in the pdf wetween 2 list 1D in order to know the similarity a scpre
 
     score=(scalar_product(vectorsA,vectorsB))/(calculate_norm(vectorsA)*calculate_norm(vectorsB))
 
     return score
 
-def most_relevant_document(mat):
+def most_relevant_document(mat): #it'll search for the more similar file in the directory by using the using the previous score of similarity
     name_of_files = real_list_of_file("./Speeches")
     max=similarity(mat[0],mat[len(mat)-1])
     for i in range(len(mat)-1):
@@ -227,7 +228,7 @@ def most_relevant_document(mat):
     return name_of_files[max_index]
 
 
-def highest_tf_idf (dict):
+def highest_tf_idf (dict): #it'll be use for computing the highest_tf_idf score of a dict, and be use in our main script to compute the highest_tf_idf score of the question
     max =0
     word = ""
     for key,value in dict.items():
@@ -236,7 +237,7 @@ def highest_tf_idf (dict):
             word = key
     return word
 
-def text_ini(filename):
+def text_ini(filename): # Get the content in str of one of the file in the directory Speeches
     content =""
     directory= 'Speeches'
     with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
