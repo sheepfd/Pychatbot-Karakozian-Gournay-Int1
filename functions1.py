@@ -1,3 +1,13 @@
+"""
+name of the project : Pychatbot-Karakozian-Gournay-Int1
+authors : Paul Gournay, Vrej Karakozian
+role this file : Use for the chatbot + features
+comment :  Here you can see the menu where you have to choice between the option 1 by inputing 1 or the option 2 byinputing 2. If you select option 1, 
+you gain access to the seven available features. Alternatively, if you choose option 2, you can interact with the chatbot and freely ask it any questions you may have."""
+
+
+
+
 import os
 import math
 from collections import defaultdict
