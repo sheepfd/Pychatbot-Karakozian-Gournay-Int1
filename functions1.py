@@ -12,7 +12,7 @@ import os
 import math
 from collections import defaultdict
 
-def real_list_of_file(directory):
+def real_list_of_file(directory): # give a list of file  of the directory : input string return  list 1d of files
     files_names = []
     for filename in os.listdir(directory):
         files_names.append(filename)
@@ -116,7 +116,7 @@ def idf(directory): #compute the score idf for every words in a directory : inpu
     return dico_score
 
 
-def Tf_idf(directory): #compute the tf_idf in a file given 
+def Tf_idf(directory): # compute the tf_idf score in a given file for every unique word : input a string (name of the directory) so return a list 2d  of dictionaries where each row represent the tf_idf score for each word of each document of the folder
     score_tf_idf = dict()
     list_of_dict_tf_idf = []
     count = 0
@@ -133,11 +133,11 @@ def Tf_idf(directory): #compute the tf_idf in a file given
         for key, value in speech.items():
             score_tf_idf[key] = value * idf_score[key]  # computation of the td_idf score
         list_of_dict_tf_idf.append(
-            score_tf_idf)  # create a list of dictionaries where each row represent the tf_idf score for each word of each document of the folder
+            score_tf_idf)  
     return (list_of_dict_tf_idf)
 
 
-def TF_IDF_matrix(directory):  # use another function to create the TF_IDF_matrix
+def TF_IDF_matrix(directory):  #compute the tf_idf score in a given file for every unique word : input a string (name of the directory) so return a list 2d  where list each row represents a word and each column represents a document
     all_speeches = ""
     TF_IDF_matrix = []
     TF_IDF_matrix_inverted = []
@@ -170,7 +170,7 @@ def all_speech(directory): #all the content in str of each files of a directory 
             all_speeches += speech
     return all_speeches
 
-def TF_IDF_question_dico(question): #take as input a string which is the question for creating and return a dictionary as key all words and as value tf idf score of each word of the question
+def TF_IDF_question_dico(question): #Compute the Tf-Idf of the question and put it in a dictionary :take as input a string which is the question for creating and return a dictionary as key all words and as value tf idf score of each word of the question
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
     intersection = set_question & set_all_speeches # we create two set one of the words of the question and one of the all string content of files in order to take their intersection
@@ -186,7 +186,7 @@ def TF_IDF_question_dico(question): #take as input a string which is the questio
             tf_idf_question[key] = 0
     return tf_idf_question
 
-def TF_IDF_question_mat(question): #same thing as previously just is here to create a matrix 2d of the question
+def TF_IDF_question_mat(question): #Compute the Tf-Idf of the question and put it in a matrix :take as input a string which is the question for creating and return a dictionary as key all words and as value tf idf score of each word
     set_question = set(list(question.split(" ")))
     set_all_speeches = set(list(all_speech("Cleaned").split(" ")))
     intersection = set_question & set_all_speeches
@@ -205,13 +205,13 @@ def TF_IDF_question_mat(question): #same thing as previously just is here to cre
         mat_tf_idf.append(val)
     return mat_tf_idf
 
-def scalar_product(vectorsA,vectorsB): #compute the scalar product between 2 list 1D
+def scalar_product(vectorsA,vectorsB): #compute the scalar product between 2 list 1D : input 2 list 1D return the result of the saclar product (int)
     result = 0
     for i in range(len(vectorsA)):
         result += vectorsA[i] * vectorsB[i]
     return result
 
-def calculate_norm(vectorsA):
+def calculate_norm(vectorsA): #compute the norm of a 1d list : input list 1d thus return a int
 
     norm = math.sqrt(sum(x ** 2 for x in vectorsA))# Calculate the Euclidean norm of the vector A
     if norm == 0 : # because in the computation of simlarity we use the norm as a denominator so it can't be equal to 0
@@ -219,13 +219,13 @@ def calculate_norm(vectorsA):
         exit(0)
     return norm
 
-def similarity(vectorsA,vectorsB): # just aply the formula given in the pdf wetween 2 list 1D in order to know the similarity a scpre
+def similarity(vectorsA,vectorsB): # just aply the formula given in the pdf wetween 2 list 1D in order to know the similarity a score : input : 2 1d list return a score(int)
 
     score=(scalar_product(vectorsA,vectorsB))/(calculate_norm(vectorsA)*calculate_norm(vectorsB))
 
     return score
 
-def most_relevant_document(mat): #it'll search for the more similar file in the directory by using the using the previous score of similarity
+def most_relevant_document(mat): #it'll search for the more similar file in the directory by using the using the previous score of similarity : input:matrix 2d list and return a string the name of the most similar file
     name_of_files = real_list_of_file("./Speeches")
     max=similarity(mat[0],mat[len(mat)-1])
     for i in range(len(mat)-1):
@@ -238,7 +238,7 @@ def most_relevant_document(mat): #it'll search for the more similar file in the 
     return name_of_files[max_index]
 
 
-def highest_tf_idf (dict): #it'll be use for computing the highest_tf_idf score of a dict, and be use in our main script to compute the highest_tf_idf score of the question
+def highest_tf_idf (dict): #it'll be use for computing the highest_tf_idf score of a dict, and be use in our main script to compute the highest_tf_idf score of the question : input a dict and as return it'll be the word whith the highest value
     max =0
     word = ""
     for key,value in dict.items():
@@ -247,7 +247,7 @@ def highest_tf_idf (dict): #it'll be use for computing the highest_tf_idf score 
             word = key
     return word
 
-def text_ini(filename): # Get the content in str of one of the file in the directory Speeches
+def text_ini(filename): # Get the content in str of one of the file in the directory Speeches : input: file name of one in 'Speeches'(str) return the content so also a string
     content =""
     directory= 'Speeches'
     with open(f"{directory}/{filename}", "r", encoding="utf-8") as f:
